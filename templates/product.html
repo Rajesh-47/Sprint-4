@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Customize {{ product_name }}{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h2>Customize Your {{ product_name }}</h2>
+    <form action="/cart" method="post" enctype="multipart/form-data" class="mt-4">
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload an Image:</label>
+            <input type="file" name="image" id="image" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="size" class="form-label">Select Size:</label>
+            <select name="size" id="size" class="form-select" required>
+                <option value="Small">Small - $50</option>
+                <option value="Medium">Medium - $60</option>
+                <option value="Large">Large - $75</option>
+            </select>
+        </div>
+        <input type="hidden" name="product" value="{{ product_name }}">
+        <button type="submit" class="btn btn-success">Add to Cart</button>
+    </form>
+</div>
+<a href="/" class="btn btn-secondary mt-3">Back</a>
+{% endblock %}

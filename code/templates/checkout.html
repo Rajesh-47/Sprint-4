@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - Custom Shop{% endblock %}
+
+{% block content %}
+<h2>Checkout</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Uploaded Image</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+        <tr>
+            <td>{{ item.product }}</td>
+            <td><img src="/static/uploads/{{ item.image }}" alt="{{ item.product }}" width="50"></td>
+            <td>${{ item.price }}</td>
+            <td>{{ item.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h3>Total Amount: ${{ total_price }}</h3>
+<form action="/complete" method="post">
+    <div class="mb-3">
+        <label for="phone" class="form-label">Phone Number:</label>
+        <input type="text" name="phone" id="phone" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="address" class="form-label">Delivery Address:</label>
+        <textarea name="address" id="address" class="form-control" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Complete Order</button>
+</form>
+{% endblock %}

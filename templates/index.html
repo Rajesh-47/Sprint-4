@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Custom Shop{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1>Welcome to Custom Shop</h1>
+    <p>Hello, <strong>{{ username }}</strong>! Customize your products and make them uniquely yours.</p>
+    <a href="/" class="btn btn-danger mt-3">Logout</a>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="/static/images/t_shirt.jpg" class="card-img-top" alt="T-Shirt">
+                <div class="card-body">
+                    <h5 class="card-title">T-Shirt</h5>
+                    <a href="/product/t-shirt" class="btn btn-primary">Customize</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="/static/images/bag.jpg" class="card-img-top" alt="Bag">
+                <div class="card-body">
+                    <h5 class="card-title">Bag</h5>
+                    <a href="/product/bag" class="btn btn-primary">Customize</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="/static/images/cup.jpg" class="card-img-top" alt="Cup">
+                <div class="card-body">
+                    <h5 class="card-title">Cup</h5>
+                    <a href="/product/cup" class="btn btn-primary">Customize</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Cart - Custom Shop{% endblock %}
+
+{% block content %}
+<h2>Your Cart</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Image</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+        <tr>
+            <td>{{ item.product }}</td>
+            <td><img src="/static/uploads/{{ item.image }}" alt="{{ item.product }}" width="50"></td>
+            <td>{{ item.size }}</td>
+            <td>${{ item.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>
+                <a href="/cart/increase/{{ item.id }}" class="btn btn-sm btn-success">+</a>
+                <a href="/cart/decrease/{{ item.id }}" class="btn btn-sm btn-danger">-</a>
+                <a href="/cart/remove/{{ item.id }}" class="btn btn-sm btn-secondary">Remove</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h3>Total: ${{ total_price }}</h3>
+<a href="/checkout" class="btn btn-primary">Checkout</a>
+<a href="/" class="btn btn-secondary">Add More</a>
+{% endblock %}

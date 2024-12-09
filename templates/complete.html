@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Order Complete{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h2>Order Completed!</h2>
+    <p>Thank you for your purchase, <strong>{{ first_name }} {{ last_name }}</strong>.</p>
+    <p>We will send a confirmation to your email: <strong>{{ email }}</strong>.</p>
+    <p>Your order will be delivered to:</p>
+    <p><strong>Phone:</strong> {{ phone }}</p>
+    <p><strong>Address:</strong> {{ address }}</p>
+    <p><strong>Payment Method:</strong> {{ payment_method }}</p>
+    <a href="/index" class="btn btn-primary">Go Home</a>
+</div>
+{% endblock %}

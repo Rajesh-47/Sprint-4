@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - Custom Shop{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Checkout</h2>
+
+    {% if cart_items %}
+    <!-- Cart Table -->
+    <table class="table table-bordered mt-4">
+        <thead class="table-dark">
+            <tr>
+                <th>Product</th>
+                <th>Product Image</th>
+                <th>Uploaded Image</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item[1] }}</td>
+                <td>
+                    {% if item[1].lower() == 't-shirt' %}
+                    <img src="/static/images/t_shirt.jpg" alt="T-Shirt Image" width="50">
+                    {% elif item[1].lower() == 'bag' %}
+                    <img src="/static/images/bag.jpg" alt="Bag Image" width="50">
+                    {% elif item[1].lower() == 'cup' %}
+                    <img src="/static/images/cup.jpg" alt="Cup Image" width="50">
+                    {% else %}
+                    <img src="/static/images/default.jpg" alt="Default Image" width="50">
+                    {% endif %}
+                </td>
+                <td><img src="/static/uploads/{{ item[3] }}" alt="Uploaded Image" width="50"></td>
+                <td>{{ item[2] }}</td>
+                <td>${{ item[4] }}</td>
+                <td>{{ item[5] }}</td>
+                <td>${{ item[4] * item[5] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Total Price -->
+    <h3 class="mt-4">Total Price: ${{ total_price }}</h3>
+
+    <!-- Order Form -->
+    <form action="/complete" method="post" class="mt-4">
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First Name:</label>
+            <input type="text" name="first_name" id="first_name" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name:</label>
+            <input type="text" name="last_name" id="last_name" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" name="email" id="email" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number:</label>
+            <input type="text" name="phone" id="phone" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label">Delivery Address:</label>
+            <textarea name="address" id="address" class="form-control" required></textarea>
+        </div>
+
+        <!-- Card Details Section -->
+           <!-- Payment Method -->
+     <div class="mb-3">
+        <h4>Enter Card Details</h4>
+                <label for="payment_method" class="form-label">Payment Method:</label>
+                <select name="payment_method" id="payment_method" class="form-control" required>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Debit Card">Debit Card</option>
+                </select>
+            </div>   
+    
+            <div class="mb-3">
+                <label for="cardNumber" class="form-label">Card Number</label>
+                <input type="text" class="form-control" id="cardNumber" name="card_number" pattern="\d{16}" maxlength="16" placeholder="Enter 16-digit card number" required>
+                <small class="form-text text-muted">Accepted credit and debit card types</small>
+                <div class="mt-2">
+                    <img src="/static/images/visa.jpg" alt="Visa" width="40">
+                    <img src="/static/images/mastercard.jpg" alt="MasterCard" width="40">
+                    <img src="/static/images/amex.jpg" alt="American Express" width="40">
+                    <img src="/static/images/discover.jpg" alt="Discover" width="40">
+                </div>
+                <div class="mb-3">
+                    <label for="cardholderName" class="form-label">Name on Card</label>
+                    <input type="text" class="form-control" id="cardholderName" name="cardholder_name" placeholder="Enter name on card" required>
+                </div>
+                <div class="mb-3">
+                    <label for="expiryDate" class="form-label">Expiry Date</label>
+                    <div class="row">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="expiryMonth" name="expiry_month" maxlength="2" placeholder="MM" required>
+                        </div>
+                        <div class="col-auto text-center">
+                            <span>/</span>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="expiryYear" name="expiry_year" maxlength="2" placeholder="YY" required>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">For example, 10/25</small>
+                </div>
+                <div class="mb-3">
+                    <label for="cvv" class="form-label">Card Security Code</label>
+                    <input type="text" class="form-control" id="cvv" name="cvv" pattern="\d{3,4}" maxlength="4" placeholder="Enter CVV" required>
+                    <small class="form-text text-muted">The last 3 digits on the back of your card</small>
+                    <div class="mt-2">
+                        <img src="/static/images/cvv_example.jpg" alt="CVV example" width="80">
+                    </div>
+                </div>
+               
+            </div>
+    
+        
+
+
+        
+
+        <button type="submit" class="btn btn-success mt-4">Complete Order</button>
+    </form>
+
+    <a href="/index" class="btn btn-primary mt-4">Add More Items</a>
+
+    {% else %}
+    <div class="mt-5">
+        <h3>Your cart is empty!</h3>
+        <a href="/index" class="btn btn-primary mt-3">Continue Shopping</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

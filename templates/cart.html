@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Cart - Custom Shop{% endblock %}
+
+{% block content %}
+<h2>Your Cart</h2>
+{% if cart_items %}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Uploaded Image</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+        <tr>
+            <td>{{ item[1] }}</td>
+            <td><img src="/static/uploads/{{ item[3] }}" alt="Uploaded Image" width="50"></td>
+            <td>{{ item[2] }}</td>
+            <td>${{ item[4] }}</td>
+            <td>{{ item[5] }}</td>
+            <td>${{ item[4] * item[5] }}</td>
+            <td>
+                <a href="/cart/increase/{{ item[0] }}" class="btn btn-sm btn-success">+</a>
+                <a href="/cart/decrease/{{ item[0] }}" class="btn btn-sm btn-danger">-</a>
+                <a href="/cart/remove/{{ item[0] }}" class="btn btn-sm btn-secondary">Remove</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h3>Total Price: ${{ total_price }}</h3>
+<a href="/checkout" class="btn btn-primary">Checkout</a>
+{% else %}
+<h3>Your cart is empty!</h3>
+<a href="/index" class="btn btn-primary">Continue Shopping</a>
+{% endif %}
+{% endblock %}
